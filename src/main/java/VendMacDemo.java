@@ -1,6 +1,7 @@
 public class VendMacDemo {
     public static void main(String[] args){
-        System.out.println("Hello World!");
-        VendMacController controller = new VendMacController();
+        VendMacModel model = new VendMacModel();
+        VendMacView view = new VendMacView();
+        VendMacController controller = new VendMacController(model, view);
     }
 }
