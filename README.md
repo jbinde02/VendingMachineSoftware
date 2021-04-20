@@ -1,7 +1,5 @@
 # VendingMachineSoftware
 Coding Challenge. An application that takes a JSON file input and displays it like a vending machine would. Items are labeled and the user can attempt to purchase an item or a new item list JSON can be added.
-VendingMachineSoftware
-Coding Challenge. An application that takes a JSON file input and displays it like a vending machine would. Items are labeled and the user can attempt to purchase an item or a new item list JSON can be added.
 
 This is a realtivly simple project in theory. The main idea is that we have a JSON input that will be decoded and the items will be displayed by row (letters) and column (numbers). The user will be able to select an item and atempt to make a payment. The vending machine will give the user updates on its state such as if it is asking for a selection, asking for a payment, or informing the user of a error. Each action will be logged so someone can go back and review if the machine is working correctly and to see if someone has interacted with it.
 
