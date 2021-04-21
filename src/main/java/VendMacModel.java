@@ -3,8 +3,11 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import java.io.FileReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.Reader;
 import java.math.BigDecimal;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,14 +18,66 @@ public class VendMacModel {
 
     //Constructor that reads the default JSON input provided located in the resources folder
     public VendMacModel(){
-        loadNewJSON("src/main/resources/input.json");
+        InputStream stream = getClass().getResourceAsStream("input.json");
+        loadNewJSON(stream);
         System.out.println("Model Created");
     }
 
+    //This version takes a path to the file
     public void loadNewJSON(String path){
         try{
             //Read in the entire JSON file
             Reader reader = new FileReader(path);
+            JSONParser parser = new JSONParser();
+            Object obj = parser.parse(reader);
+            JSONObject jsonObject = (JSONObject)obj;
+            reader.close();
+
+            //Set config variables
+            JSONObject configValues = (JSONObject)jsonObject.get("config");
+            Long columnLong = (Long) configValues.get("columns");
+            columns = columnLong.intValue();
+            Long rowLong = (Long) configValues.get("rows");
+            rows = rowLong.intValue();
+
+            //Populate vendMacItemsMap. Creates key value which represents the location in the vending machine
+            JSONArray jsonItems = (JSONArray)jsonObject.get("items");
+            vendMacItemMap.clear();
+
+            char rowValue = 'A';
+            int columnValue = 0;
+            for(int i = 0; i < jsonItems.size(); i++){
+                JSONObject jsonItem = (JSONObject)jsonItems.get(i);
+                VendMacItem item = new VendMacItem();
+
+                item.setName((String)jsonItem.get("name"));
+                Long amountLong = (Long)jsonItem.get("amount");
+                item.setAmount(amountLong.intValue());
+                item.setPrice((String)jsonItem.get("price"));
+
+                //Check if at end of column. If so, advance a row and reset column index to 0
+                if (columnValue == columns) {
+                    columnValue = 0;
+                    rowValue++;
+                    if(rowValue - 65 == rows){ //65 is the ASCII value for 'A'. 65 - 'A' would represent the first index of the rows.
+                        System.out.println("Maximum size reached!");
+                        break;
+                    }
+                }
+                String keyValue =  rowValue + "" + columnValue;
+                columnValue++;
+                vendMacItemMap.put(keyValue, item);
+            }
+        } catch (Exception ex){
+            ex.printStackTrace();
+        }
+    }
+
+    //This version takes a input stream of the file
+    public void loadNewJSON(InputStream stream){
+        try{
+            //Read in the entire JSON file
+            Reader reader = new InputStreamReader(stream);
             JSONParser parser = new JSONParser();
             Object obj = parser.parse(reader);
             JSONObject jsonObject = (JSONObject)obj;

@@ -23,10 +23,10 @@ public class VendMacModelTest extends TestCase {
 
     public void testAttemptPurchase() {
         assertEquals(vendMacModel.attemptPurchase("A0", "1.35"),
-                "Purchase successful. Enjoy your " + vendMacModel.getItem("A0").getName() + "!");
+                "Purchase successful. 0.00 in change. Enjoy your Snickers!");
         assertEquals(vendMacModel.attemptPurchase("A0", "1.45"),
-                "Purchase successful. Enjoy your " + vendMacModel.getItem("A0").getName() + "!");
+                "Purchase successful. 0.10 in change. Enjoy your Snickers!");
         assertEquals(vendMacModel.attemptPurchase("A0", "1.00"),
-                "Invalid purchase amount. Purchase failed!");
+                "This item cost 0.35 more: Invalid purchase amount. Purchase failed!");
     }
 }
