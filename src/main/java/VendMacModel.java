@@ -88,14 +88,19 @@ public class VendMacModel {
         VendMacItem selectedItem = getItem(location);
         BigDecimal selectedItemPrice = new BigDecimal(selectedItem.getPrice().substring(1)); //Substring gets rid of dollar sign
         BigDecimal payment = new BigDecimal(inputPayment);
-        if(selectedItemPrice.subtract(payment).signum() == 1){
-            return "Invalid purchase amount. Purchase failed!";
+        BigDecimal result = selectedItemPrice.subtract(payment);
+        if(result.signum() == 1){
+            return "This item cost " + result.toString() + " more: Invalid purchase amount. Purchase failed!";
         }else if(selectedItem.getAmount() <= 0){
             return "Invalid quantity of selected item. Purchase failed!";
         }else{
             selectedItem.decrement();
-            return "Purchase successful. Enjoy your " + selectedItem.getName() + "!";
+            return "Purchase successful. "+ result.abs().toString() + " in change. Enjoy your " + selectedItem.getName() + "!";
         }
+    }
+
+    public Map getVendMacItemMap(){
+        return vendMacItemMap;
     }
 }
 

@@ -1,33 +1,60 @@
 import javax.swing.*;
-import java.awt.*;
+import java.util.Map;
 
 public class VendMacView {
     JFrame frame;
-    JPanel itemsPanel, uiPanel;
+    JPanel mainPanel;
+    JButton submitButton, loadButton;
     JTextArea itemsArea;
+    JTextField inputField, statusField;
+
     public VendMacView(){
         //Setting up the frame
-        frame = new JFrame();
-        frame.setSize(500, 500);
-        frame.setTitle("Vending Machine");
+        frame = new JFrame("Vending Machine");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        GridLayout gridLayout = new GridLayout(0,2);
-        frame.setLayout(gridLayout);
-
-        //Sets up the two panels
-        itemsPanel = new JPanel();
-        itemsPanel.setSize(250,250);
-        frame.add(itemsPanel);
-        uiPanel = new JPanel();
-        uiPanel.setSize(250,250);
-        frame.add(uiPanel);
-
-        //Sets up itemsPane
-        itemsArea = new JTextArea(100, 100);
-        itemsArea.setSize(100,100);
-        itemsPanel.add(itemsArea);
-
+        frame.setSize(800,500);
         frame.setVisible(true);
+
+        mainPanel = new JPanel();
+        frame.add(mainPanel);
+
+        //Items display area
+        itemsArea = new JTextArea("",10,10);
+        itemsArea.setEditable(false);
+        mainPanel.add(itemsArea);
+
+        //Submit Button
+        submitButton = new JButton("Submit");
+        mainPanel.add(submitButton);
+
+        //Load Button
+        loadButton = new JButton("Load JSON");
+        mainPanel.add(loadButton);
+
+        //Input field
+        inputField = new JTextField("Input");
+        mainPanel.add(inputField);
+
+        //Status field
+        statusField = new JTextField("Status");
+        statusField.setEditable(false);
+        mainPanel.add(statusField);
+
         System.out.println("View Created");
+    }
+
+    public void updateItemsDisplay(Map<String, VendMacItem> vendMacItemMap){
+        itemsArea.setText("");
+        for(Map.Entry<String, VendMacItem> item : vendMacItemMap.entrySet()){
+            itemsArea.append(item.getValue() + " | " + item.getKey() + "\n");
+        }
+    }
+
+    public JButton getSubmitButton() {
+        return submitButton;
+    }
+
+    public JButton getLoadButton() {
+        return loadButton;
     }
 }
