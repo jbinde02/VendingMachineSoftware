@@ -1,6 +1,10 @@
 import javax.swing.*;
 import java.io.File;
 
+/*
+The controller acts as the interface between the view and the model. The controller will give the data to the view
+to update and the controller will take actions from the view and update the model.
+ */
 public class VendMacController {
     private VendMacModel model;
     private VendMacView view;
@@ -17,9 +21,10 @@ public class VendMacController {
         updateItemDisplay();
         setActionListeners();
 
-        cycle(); //Begin cycle. Takes input state and determines the machine's actions. Very crude
+        cycle(); //Begin cycle.
     }
 
+    //Takes the data from the model and gives it to the view to update. Also creates some column names for the table.
     private void updateItemDisplay(){
         String[] columnNames = new String[model.getColumns()];
         for(int i = 0; i<columnNames.length; i++){
@@ -48,6 +53,13 @@ public class VendMacController {
         });
     }
 
+    /*
+    Cycle() represents the cycle the machine goes through. It is called once at the creation of the controller class
+    and then every time the submit button is triggered. It starts by asking for a selection and advancing the
+    inputState. This takes it to the next case which checks the selection. If the selection is acceptable, it increases
+    the inputState which takes it to the next case which asks for payment. This will either fail or succeed. The submit
+    button's text is changed to clear and the inputState is reset to 0 where the cycle will begin again.
+     */
     private void cycle(){
         switch (inputState){
             case 0:

@@ -10,10 +10,14 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
+/*
+The model is the datacenter of the application. It takes in outside data and stores it. It is also responsible for
+manipulating the data and for returning data when queried.
+ */
 public class VendMacModel {
     private int columns, rows;
     //Map of the items. Key represents the location in the vending machine
-    private Map<String, VendMacItem> vendMacItemMap = new HashMap<String, VendMacItem>();
+    private Map<String, VendMacItem> vendMacItemMap = new HashMap<>();
 
     //Constructor that reads the default JSON input provided located in the resources folder
     public VendMacModel(){
@@ -21,7 +25,7 @@ public class VendMacModel {
         loadNewJSON(stream);
     }
 
-    //This version takes a path to the file
+    //This loadNewJSON version takes a path to the file
     public void loadNewJSON(String path){
         try{
             //Read in the entire JSON file
@@ -71,7 +75,7 @@ public class VendMacModel {
         }
     }
 
-    //This version takes a input stream of the file
+    //This loadNewJSON version takes a input stream of the file
     public void loadNewJSON(InputStream stream){
         try{
             //Read in the entire JSON file
@@ -137,6 +141,11 @@ public class VendMacModel {
         return vendMacItemMap.get(location) != null;
     }
 
+    /*
+    Takes a location and payment amount and attempts to buy and item. This method writes to the console acting as a 'log'
+    and it returns a string that will be used to inform the user of what is happening. It will also remove one amount from
+    the item if successful.
+     */
     public String attemptPurchase(String location, String inputPayment){
         VendMacItem selectedItem = getItem(location);
         BigDecimal selectedItemPrice = new BigDecimal(selectedItem.getPrice().substring(1)); //Substring gets rid of dollar sign
@@ -159,6 +168,7 @@ public class VendMacModel {
         return vendMacItemMap;
     }
 
+    //Turns the item map into a 2D array which is used by the view to set the JTable.
     public VendMacItem[][] itemMapTo2DArray(Map<String, VendMacItem> itemMap){
         VendMacItem[][] vendMacItem2DArray = new VendMacItem[getRows()][getColumns()];
         for(int i = 0; i < vendMacItem2DArray.length; i++){
@@ -170,6 +180,9 @@ public class VendMacModel {
     }
 }
 
+/*
+This class is a representation of a item in the vending machine. It contains the items name, price, and amount left.
+ */
 class VendMacItem{
     private String name;
     private int amount;
