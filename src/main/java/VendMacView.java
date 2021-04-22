@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 import java.util.Map;
 
 public class VendMacView {
@@ -33,14 +34,14 @@ public class VendMacView {
 
         //Input field
         inputField = new JTextField("Input");
+        inputField.setPreferredSize(new Dimension(50, 25));
         mainPanel.add(inputField);
 
         //Status field
         statusField = new JTextField("Status");
         statusField.setEditable(false);
+        statusField.setPreferredSize(new Dimension(300, 25));
         mainPanel.add(statusField);
-
-        System.out.println("View Created");
     }
 
     public void updateItemsDisplay(Map<String, VendMacItem> vendMacItemMap){

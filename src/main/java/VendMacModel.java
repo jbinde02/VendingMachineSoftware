@@ -7,7 +7,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.math.BigDecimal;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,7 +19,6 @@ public class VendMacModel {
     public VendMacModel(){
         InputStream stream = getClass().getResourceAsStream("input.json");
         loadNewJSON(stream);
-        System.out.println("Model Created");
     }
 
     //This version takes a path to the file
