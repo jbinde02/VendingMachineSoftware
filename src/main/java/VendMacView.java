@@ -1,55 +1,59 @@
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.util.Map;
 
 public class VendMacView {
     JFrame frame;
     JPanel mainPanel;
     JButton submitButton, loadButton;
-    JTextArea itemsArea;
     JTextField inputField, statusField;
+    JTable itemTable;
+    JScrollPane scrollPane;
 
     public VendMacView(){
         //Setting up the frame
         frame = new JFrame("Vending Machine");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(800,500);
+        frame.setSize(1250,750);
         frame.setVisible(true);
 
+        //Main panel
         mainPanel = new JPanel();
         frame.add(mainPanel);
 
-        //Items display area
-        itemsArea = new JTextArea("",10,10);
-        itemsArea.setEditable(false);
-        mainPanel.add(itemsArea);
-
-        //Submit Button
-        submitButton = new JButton("Submit");
-        mainPanel.add(submitButton);
+        //Item table
+        itemTable = new JTable();
+        scrollPane = new JScrollPane(itemTable);
+        itemTable.setAutoResizeMode(JTable.AUTO_RESIZE_NEXT_COLUMN);
+        scrollPane.setPreferredSize(new Dimension(1200,500));
+        mainPanel.add(scrollPane);
 
         //Load Button
         loadButton = new JButton("Load JSON");
         mainPanel.add(loadButton);
 
+        //Submit Button
+        submitButton = new JButton("Submit");
+        mainPanel.add(submitButton);
+
         //Input field
-        inputField = new JTextField("Input");
-        inputField.setPreferredSize(new Dimension(50, 25));
+        inputField = new JTextField();
+        inputField.setPreferredSize(new Dimension(75, 25));
         mainPanel.add(inputField);
 
         //Status field
         statusField = new JTextField("Status");
         statusField.setEditable(false);
-        statusField.setPreferredSize(new Dimension(300, 25));
+        statusField.setPreferredSize(new Dimension(550, 25));
         mainPanel.add(statusField);
     }
 
-    public void updateItemsDisplay(Map<String, VendMacItem> vendMacItemMap){
-        itemsArea.setText("");
-        for(Map.Entry<String, VendMacItem> item : vendMacItemMap.entrySet()){
-            itemsArea.append(item.getValue() + " | " + item.getKey() + "\n");
-        }
+    public void updateItemsDisplay(VendMacItem[][] vendMacItem2D, String[] columnNames){
+
+        itemTable.setModel(new DefaultTableModel(vendMacItem2D, columnNames));
+        SwingUtilities.updateComponentTreeUI(frame);
     }
+
 
     public JButton getSubmitButton() {
         return submitButton;

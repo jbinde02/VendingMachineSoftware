@@ -7,7 +7,7 @@ public class VendMacModelTest extends TestCase {
         vendMacModel.loadNewJSON("src/main/resources/inputTest.json");
         VendMacModel vendMacModel = new VendMacModel();
         vendMacModel.loadNewJSON("src/main/resources/inputTest.json");
-        assertEquals(vendMacModel.getItem("A0").toString(), "Name: Snickers | Amount: 10 | Price: $1.35");
+        assertEquals(vendMacModel.getItem("A0").toString(), "Snickers | $1.35 | 10");
         assertNull(vendMacModel.getItem("C0"));
     }
 

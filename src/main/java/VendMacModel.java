@@ -143,17 +143,30 @@ public class VendMacModel {
         BigDecimal payment = new BigDecimal(inputPayment);
         BigDecimal result = selectedItemPrice.subtract(payment);
         if(result.signum() == 1){
+            System.out.println("Purchase of item in " + location + " failed. Insufficient payment of " + payment + ". At " + java.time.LocalDateTime.now());
             return "This item cost " + result.toString() + " more: Invalid purchase amount. Purchase failed!";
         }else if(selectedItem.getAmount() <= 0){
+            System.out.println("Purchase of item in " + location + " failed. Insufficient amount of item. At " + java.time.LocalDateTime.now());
             return "Invalid quantity of selected item. Purchase failed!";
         }else{
             selectedItem.decrement();
+            System.out.println("Purchase of item in " + location + " successful of " + payment + ". At " + java.time.LocalDateTime.now());
             return "Purchase successful. "+ result.abs().toString() + " in change. Enjoy your " + selectedItem.getName() + "!";
         }
     }
 
-    public Map getVendMacItemMap(){
+    public Map<String, VendMacItem> getVendMacItemMap(){
         return vendMacItemMap;
+    }
+
+    public VendMacItem[][] itemMapTo2DArray(Map<String, VendMacItem> itemMap){
+        VendMacItem[][] vendMacItem2DArray = new VendMacItem[getRows()][getColumns()];
+        for(int i = 0; i < vendMacItem2DArray.length; i++){
+            for(int j = 0; j < vendMacItem2DArray[0].length; j++){
+                vendMacItem2DArray[i][j] = itemMap.get((char)(i + 65) + "" + j);
+            }
+        }
+        return  vendMacItem2DArray;
     }
 }
 
@@ -191,6 +204,6 @@ class VendMacItem{
     }
 
     public String toString(){
-        return "Name: " + name + " | Amount: " + amount + " | Price: " + price;
+        return name + " | " + price + " | " + amount;
     }
 }
