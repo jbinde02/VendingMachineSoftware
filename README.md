@@ -29,6 +29,6 @@ The controller class contains a very crude cycle for giving the machine some bas
 
 I created a 'log' of actions by printing stuff to the console. A better way of doing this would proably be putting the info in a textfile.
 
-This is the first time I have tried to use maven and it seems like it would be a pretty good tool for larger projects. It made importing the .json simple library very easy. Something it didn't make easy was creating a jar file with dependencies included. I just left intellij up to that task which was still a struggle for some reason.
+This is the first time I have tried to use maven and it seems like it would be a pretty good tool for larger projects. It made importing the json.simple library very easy. Something it didn't make easy was creating a jar file with dependencies included. I just left intellij up to that task which was still a struggle for some reason.
 
 I also implemented a few unit test for the model class. I learned how to do unit test over a year ago but I never really had a reason to use them. I decided to try and use them again since maven has a cycle that runs tests.
