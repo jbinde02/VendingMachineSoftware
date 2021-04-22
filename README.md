@@ -13,7 +13,7 @@ You should also be able to navigate to the .jar file and double click it to run.
 This is a realtivly simple project in theory. The main idea is that we have a JSON input that will be decoded and the items will be displayed by row (letters) and column (numbers). The user will be able to select an item and atempt to make a payment. The vending machine will give the user updates on its state such as if it is asking for a selection, asking for a payment, or informing the user of a error. Each action will be logged so someone can go back and review if the machine is working correctly and to see if someone has interacted with it.
 
 # Before
-There are a few things I haven't done before that I tried on this project. First is working with JSON in Java. This shouldn't be too bad since there are many resources to help me with it. Next is using Maven. The instructions given said that using Maven and open source libraries is encouraged so I decided to give it a shot. It was a learning curve but I think I kind of understand it (at least enough to get something working).
+There are a few things I haven't done before that I tried on this project. First is working with JSON in Java. This shouldn't be too bad since there are many resources to help me with it. Next is using Maven. The instructions given said that using Maven and open source libraries is encouraged so I decided to give it a try. I also learned how to do unit test about a year ago and then never used them so I'll try and include some here.
 
 # Note
 Not sure if it is intentional or not but the columns value in the config object of the input.json file is a string and not a number. I changed the columns value so that it is a number.
