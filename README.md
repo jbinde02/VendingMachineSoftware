@@ -2,7 +2,7 @@
 Coding Challenge. An application that takes a JSON file input and displays it like a vending machine would. Items are labeled and the user can attempt to purchase an item or a new item list JSON can be added.
 
 # Current instructions to run
-1. Download the VendingMachineSoftware.jar file from the /out/artifacts directory
+1. Download the VendingMachineSoftware.jar file from the /out/artifacts/VendingMachineSoftware_jar directory
 2. Open up the command prompt in Windows
 3. Navigate to where the file is located
 4. Type 'java -jar VendingMachineSoftware.jar' and hit enter
